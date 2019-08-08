@@ -9,12 +9,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+interface Listener
+{
+    void Listener(String str);
+}
 
-    EditText input;         //화면구성
-    Button button;          //화면구성
-    TextView output;        //화면구성
+public class MainActivity extends Activity implements Listener{
+
+    EditText input;
+    Button button;
+    TextView output;
+    String chatText;
+    String address;
     SocketManager SM;
 
     @Override
@@ -22,47 +30,88 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        input = (EditText) findViewById(R.id.input); // 글자입력칸을 찾는다.
-        button = (Button) findViewById(R.id.button); // 버튼을 찾는다.
-        output = (TextView) findViewById(R.id.output); // 글자출력칸을 찾는다.
-        SM = new SocketManager();
+        input = (EditText) findViewById(R.id.input);
+        button = (Button) findViewById(R.id.button);
+        output = (TextView) findViewById(R.id.output);
+        SM = new SocketManager(this);
 
 
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if(input.getText().length()!=0)
-                    SM.setData(input.getText().toString());
+                String[] str;
+                if(input.getText().length()!=0) {
+                    str = input.getText().toString().split(" ");
+                    if(str[0].equals("!connect") && str.length==2)
+                    {
+                        SM.close();
+                        SM.setSocket(str[1], 4000);
+                        if(SM.Alive())
+                            address = str[1];
+                    }
+                    else
+                        SM.setData(input.getText().toString());
+                }
             }
         });
     }
 
+    public synchronized void Listener(String str)
+    {
+        switch(str) {
+            case "Network Message":
+                if (SM.getData() != null) {
+                    if(chatText != null)
+                        chatText = chatText + SM.getData() + "\n";
+                    else
+                        chatText = SM.getData() + "\n";
+                    String[] a = chatText.split("\n");
+                    if(a.length>10)
+                    {
+                        chatText = a[a.length-10] + "\n";
+                        for(int i=a.length-9;i<a.length;i++)
+                            chatText = chatText + a[i] + "\n";
+                    }
+                    output.post(new Runnable() {
+                        public void run() {
+                            output.setText(chatText);
+                        }
+                    });
+                }
+                break;
+            case "Server Not Found" :
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        final Toast toast = Toast.makeText(getApplicationContext(), "Server not founded!", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                });
+                break;
+            case "Connect" :
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        final Toast toast = Toast.makeText(getApplicationContext(), "Server connected!", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                });
+                break;
+            case "Wrong Address" :
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        final Toast toast = Toast.makeText(getApplicationContext(), "Wrong address!", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                });
+                break;
+            default :
+                break;
+        }
+    }
     @Override
     protected void onResume()
     {
         super.onResume();
-//소켓에서 데이터를 읽어서 화면에 표시한다.
-        try {
-            new Thread(new Runnable() {
-                public void run() {
-                    SM.setSocket("61.78.190.44", 4000);
-
-                    while (SM.Alive()) {
-                        if(SM.getData()!=null) {
-                            output.post(new Runnable() {
-                                public void run() {
-                                    output.setText(SM.getData()); //글자출력칸에 서버가 보낸 메시지를 받는다.
-                                }
-                            });
-                        }
-                        try {
-                            Thread.sleep(100);
-                        }catch(Exception e){
-                        }
-                    }
-                }
-            }).start();
-        }catch (Exception e) {
-        }
+        if(!SM.Alive() && address != null)
+            SM.setSocket(address, 4000);
     }
 
     @Override
@@ -73,7 +122,7 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onStop() {  //앱 종료시
+    protected void onStop() {
         super.onStop();
         SM.close();
     }
