@@ -21,6 +21,7 @@ public class SocketManager{
     private PrintWriter out;
     private String data,send;
     private Listener L;
+    private String code;
 
     private SocketAddress SocketAdr;
     private String HostIp;
@@ -63,14 +64,16 @@ public class SocketManager{
                         socket.connect(SocketAdr,3000);
                         out = new PrintWriter(socket.getOutputStream(), true);
                         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        if(code != null)
+                            setData("!remember" + code);
                         new Thread(new InputHandler()).start();
                     }
                 } catch(SocketTimeoutException e){
+                    close();
                     L.Listener("Server Not Found");
                 }
                 catch (IOException e) {
                 }
-
             }
         });
             t.start();

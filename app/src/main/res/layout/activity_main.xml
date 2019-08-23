@@ -3,44 +3,451 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/ConnectRoom"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical" >
 
-        <TextView android:id="@+id/TextView01"
+        <EditText
+            android:id="@+id/IPEdit"
+            android:hint="@string/IPEdit"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"/>
-
-        <EditText android:id="@+id/input"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"/>
-
-        <Button android:id="@+id/button"
+        <Button
+            android:id="@+id/Connect"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="send!!"/>
+            android:text="@string/Connect"/>
+        <Button
+            android:id="@+id/sudoStart"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sudoStart"/>
 
 
+        <TextView android:id="@+id/InfoText"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/Disconnect"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
-                android:text="server send : "/>
-
-            <TextView android:id="@+id/output"
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent"/>
+                android:layout_weight="1"
+                android:text="@string/Disconnect"/>
+
+            <Button
+                android:id="@+id/Logout"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/LogOut"/>
+
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/IDEdit"
+            android:inputType="text"
+            android:visibility="gone"
+            android:hint="@string/getID"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"/>
+        <EditText
+            android:id="@+id/PWEdit"
+            android:inputType="text"
+            android:visibility="gone"
+            android:hint="@string/getPW"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"/>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/NewAcc"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/NewAccount"/>
+            <Button
+                android:id="@+id/Login"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/LogIn"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/MSGText"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="fill_parent"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText android:id="@+id/MSGEdit"
+                android:hint="@string/empty"
+                android:inputType="text"
+                android:visibility="gone"
+                android:layout_weight="8"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <Button android:id="@+id/Send"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Send"/>
+
+        </LinearLayout>
+
+        <Button android:id="@+id/Ready"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Ready"/>
+
 
 
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/InGame"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
+        <TableLayout
+            android:id="@+id/Topbar"
+            android:layout_alignParentTop="true"
+            android:layout_width="fill_parent"
+            android:layout_height="126dp"
+            android:background="@drawable/top_bar">
+            <TextView
+                android:layout_marginTop="3dp"/>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/top1_ID"
+                    android:layout_weight="8.6"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="0dp"
+                    android:gravity="end"
+                    android:text="Silver_Fingered Jete"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#FF0000" />
+
+                <TextView android:id="@+id/top1_Point"
+                    style="@style/User_Status"
+                    android:text="1"/>
+
+                <TextView android:id="@+id/top1_Knight"
+                    style="@style/User_Status"
+                    android:text="2"/>
+
+                <TextView android:id="@+id/top1_Road"
+                    style="@style/User_Status"
+                    android:text="3"/>
+
+                <TextView android:id="@+id/top1_Village"
+                    style="@style/User_Status"
+                    android:text="4"/>
+
+                <TextView android:id="@+id/top1_City"
+                    style="@style/User_Status"
+                    android:text="5"/>
+
+                <TextView android:id="@+id/top1_Card"
+                    style="@style/User_Status"
+                    android:text="6"/>
+
+                <TextView android:id="@+id/top1_DevCard"
+                    style="@style/User_Status"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:textStyle="bold"
+                    android:text="7"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/top2_ID"
+                    android:layout_weight="8.6"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="end"
+                    android:text="Rakan"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#0000FF" />
+
+                <TextView android:id="@+id/top2_Point"
+                    style="@style/User_Status"
+                    android:textStyle="bold"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top2_Knight"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top2_Road"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top2_Village"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top2_City"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top2_Card"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top2_DevCard"
+                    style="@style/User_Status"
+                    android:text="10"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginEnd="3dp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/top3_ID"
+                    android:layout_weight="8.6"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="end"
+                    android:text="Rakan"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#00AF00" />
+
+                <TextView android:id="@+id/top3_Point"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top3_Knight"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top3_Road"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top3_Village"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top3_City"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top3_Card"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top3_DevCard"
+                    style="@style/User_Status"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginEnd="3dp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/top4_ID"
+                    android:layout_weight="8.6"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="end"
+                    android:text="Rakan"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#EFEF00" />
+
+                <TextView android:id="@+id/top4_Point"
+                    style="@style/User_Status"
+                    android:text="10"/>
+
+                <TextView android:id="@+id/top4_Knight"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top4_Road"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top4_Village"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top4_City"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top4_Card"
+                    style="@style/User_Status"/>
+
+                <TextView android:id="@+id/top4_DevCard"
+                    style="@style/User_Status"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginEnd="3dp"/>
+            </TableRow>
+        </TableLayout>
+
+        <SurfaceView
+            android:id="@+id/mapView"
+            android:layout_below="@id/Topbar"
+            android:layout_above="@id/BottomBar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+        <TextView
+            android:id="@+id/MiniChat"
+            android:layout_below="@id/Topbar"
+            android:background="#59FFFFFF"
+            android:text="Rakan : (대충 띵호잉루 하는 글)\nSilver_Finger : (대충 척추)
+\nChang : (대충 ㄱ이 섞인 무수한ㅋ)"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:padding="2dp"
+            android:maxLines="3"/>
+        <Button
+            android:id="@+id/chatButton"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:text="채팅"
+            android:layout_below="@+id/MiniChat"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+        <Button
+            android:layout_below="@id/chatButton"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:text="교역"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+        <LinearLayout
+            android:id="@+id/BottomBar"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="120dp">
+
+            <TableLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent">
+                <TableRow>
+                    <ImageView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp" />
+                    <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:background="#A0A0A0"
+                        android:layout_weight="1"
+                        android:text="돌"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp" />
+                </TableRow>
+                <TableRow>
+                    <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:background="#D0A540"
+                        android:layout_weight="1"
+                        android:text="나무"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp" />
+                    <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:background="#F0E5B0"
+                        android:layout_weight="1"
+                        android:text="밀"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp" />
+                </TableRow>
+                <TableRow>
+                    <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:background="#D05030"
+                        android:layout_weight="1"
+                        android:text="벽돌"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp" />
+                    <Button
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:background="#F0F0F0"
+                        android:layout_weight="1"
+                        android:text="양"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp" />
+                </TableRow>
+            </TableLayout>
+            <Button
+                android:layout_weight="1"
+                android:text="턴 언데드"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent" />
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent">
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp" />
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp" />
+            </LinearLayout>
+
+        </LinearLayout
+            >
+    </RelativeLayout>
 </LinearLayout>

@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">client</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="empty"> </string>
+    <string name="IPEdit">서버 IP를 입력하세요</string>
+    <string name="Connect">서버 접속</string>
+    <string name="sudoStart">오프라인 접속(임시)</string>
+    <string name="Disconnect">연결종료</string>
+    <string name="LogIn">로그인</string>
+    <string name="LogOut">로그아웃</string>
+    <string name="NewAccount">계정생성</string>
+    <string name="getID">ID를 입력하세요</string>
+    <string name="getPW">PW를 입력하세요</string>
+    <string name="Send">전   송!!!!</string>
+    <string name="Ready">준비완료</string>
 </resources>
